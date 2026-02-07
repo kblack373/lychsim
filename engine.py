@@ -5,9 +5,7 @@ import csv
 import ComUn
 
 class Engine:
-    def __init__(self):
-        #empty constructor... for now
-        
+    def __init__(self):        
         #init list for party of heroes
         self.party = []
         
