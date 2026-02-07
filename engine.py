@@ -3,14 +3,13 @@
 # engine class; contains game logic
 import csv
 import ComUn
+import Army
 
 class Engine:
     def __init__(self):        
-        #init list for party of heroes
-        self.party = []
-        
-        #init list for enemy horde
-        self.horde = []
+        #init empty
+        self.party = None
+        self.horde = None
         pass
     
     def parseConfig(self, inFileName):
@@ -40,6 +39,14 @@ class Engine:
                 u = None
         return (plParty,plHorde)
 e = Engine()
+print("> Reading csv configuration.... ")
 result = e.parseConfig('enc.csv')
-e.party = result[0]
-e.horde = result[1]
+print("> Complete! ")
+print("> Initializing Armies.... ")
+e.party = Army.Army(result[0])
+e.horde = Army.Army(result[1])
+print("> Complete! ")
+print("Reporting Heroes...")
+e.party.report()
+print("Reporting Enemies...")
+e.horde.report()
