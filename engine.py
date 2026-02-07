@@ -32,7 +32,7 @@ class Engine:
                     plParty.append(u)
                 elif(team==0):
                     #unit is enemy
-                    u = ComUnEnemy(row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8])
+                    u = ComUn.Enemy(row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8])
                     plHorde.append(u)
                 else:
                     #bad file logic
