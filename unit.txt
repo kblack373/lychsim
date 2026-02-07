@@ -1,0 +1,8 @@
+combat unit
+	- name
+	- id
+	- health(HP)
+	- chance to hit
+	- damage
+	- armor class
+	- initiative
