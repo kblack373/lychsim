@@ -20,19 +20,19 @@ class ComUn:
 
 
 #hp functions
-def setHp(inHp):
-    self.hp = inHp
-    return self.alive
-    
-def subHp(inHp):
-    self.hp -= inHp
-    reportHp = self.hp
-    return report
-    
-def addHp(inHp):
-    self.hp += inHp
-    reportHp = self.hp
-    return reportHp
+    def setHp(inHp):
+        self.hp = inHp
+        return self.alive
+        
+    def subHp(inHp):
+        self.hp -= inHp
+        reportHp = self.hp
+        return report
+        
+    def addHp(inHp):
+        self.hp += inHp
+        reportHp = self.hp
+        return reportHp
     
     
 class Hero(ComUn):
