@@ -1,4 +1,5 @@
 combat unit
+	- class (1=Hero, 0=Enemy)
 	- name
 	- id
 	- health(HP)

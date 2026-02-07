@@ -37,13 +37,13 @@ class ComUn:
     
 class Hero(ComUn):
     def __init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini): 
-        super().__init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini)
+        super().__init__(name, idr, hp, hitChance, dmg, ac, dodge, ini)
         #distinguish player
         self.side="player"
         
         
 class Enemy(ComUn):
     def __init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini): 
-        super().__init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini)
+        super().__init__(name, idr, hp, hitChance, dmg, ac, dodge, ini)
         #distinguish enemy
         self.side="enemy"
