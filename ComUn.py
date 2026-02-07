@@ -20,16 +20,16 @@ class ComUn:
 
 
 #hp functions
-    def setHp(inHp):
+    def setHp(self, inHp):
         self.hp = inHp
         return self.alive
         
-    def subHp(inHp):
+    def subHp(self, inHp):
         self.hp -= inHp
         reportHp = self.hp
         return report
         
-    def addHp(inHp):
+    def addHp(self, inHp):
         self.hp += inHp
         reportHp = self.hp
         return reportHp
