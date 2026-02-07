@@ -2,8 +2,9 @@
 # simulator to experiment with Lychgate RPG combat scenarios
 # engine class; contains game logic
 import csv
-import ComUn
 import Army
+import ComUn
+
 
 class Engine:
     def __init__(self):        
@@ -50,3 +51,5 @@ print("Reporting Heroes...")
 e.party.report()
 print("Reporting Enemies...")
 e.horde.report()
+
+e.party.units[0].attack(e.horde.units[0])

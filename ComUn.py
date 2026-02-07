@@ -1,17 +1,18 @@
 # kb 2-7-2025
 # simulator to experiment with Lychgate RPG combat scenarios
 # combat unit class
+import random
 
 class ComUn:
     def __init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini):
         self.name = name
-        self.idr = idr
-        self.hp = hp 
-        self.hitChance = hitChance
-        self.dmg = dmg
-        self.ac = ac
-        self.dodge = dodge
-        self.ini = ini
+        self.idr = int(idr)
+        self.hp = int(hp)
+        self.hitChance = float(hitChance)
+        self.dmg = int(dmg)
+        self.ac = int(ac)
+        self.dodge = float(dodge)
+        self.ini = int(ini)
         self.alive=1
 
 
@@ -34,6 +35,44 @@ class ComUn:
         reportHp = self.hp
         return reportHp
     
+    # combat logic
+    def tryDodge(self, inShot):
+        #react formula: super basic
+        react=self.dodge
+        
+        if (inShot>react):
+            # the dodge fails
+            return 0
+        else:
+            # the dodge succeeds
+            return 1
+        
+        
+    def attack(self, inTarget):
+        #first we need to hit
+        #grab our accuracy and damage
+        acc = self.hitChance
+        dmg = self.dmg
+        
+        #take a swing
+        swing = random.randrange(1,100)
+        
+        #check if our swing is within our acc threshold
+        if (swing <= acc):
+            #that's a potential hit
+            #now check against dodge
+            if (not(inTarget.tryDodge(swing))):
+                #that's a confirmed hit!
+                #now apply damage
+                netDmg = dmg - inTarget.ac
+                inTarget.subHp(netDmg)
+                print(self.name, "deals", netDmg, "to", inTarget.name)
+            else:
+                #report a miss
+                print(self.name, "swings but", inTarget.name, " is too quick!")
+        else:
+            #report a miss
+            print(self.name, "swings and misses.")
     
 class Hero(ComUn):
     def __init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini): 

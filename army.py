@@ -44,3 +44,4 @@ class Army:
             print("Net Evasion: ", u.dodge)
             print("Initiative: ", u.ini)
             print("")
+            
