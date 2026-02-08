@@ -15,7 +15,7 @@ class Battle:
         heroes = self.heroArmy.units
         enemies =  self.enemyArmy.units
         
-        omniArmy = Army.Army(heroes+enemies)
+        omniArmy = army.Army(heroes+enemies)
         payload = omniArmy.sortSelf
         
     

@@ -3,7 +3,7 @@
 # combat unit class
 import random
 
-class ComUn:
+class comUn:
     def __init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini):
         self.name = name
         self.idr = int(idr)
@@ -16,7 +16,7 @@ class ComUn:
         self.alive=1
 
 
-#c1 = ComUn("herp", 1, 25, 50.00, 7, 6, 1)
+#c1 = comUn("herp", 1, 25, 50.00, 7, 6, 1)
 #print(c1.name)
 
 
@@ -74,14 +74,14 @@ class ComUn:
             #report a miss
             print(self.name, "swings and misses.")
     
-class Hero(ComUn):
+class Hero(comUn):
     def __init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini): 
         super().__init__(name, idr, hp, hitChance, dmg, ac, dodge, ini)
         #distinguish player
         self.side="player"
         
         
-class Enemy(ComUn):
+class Enemy(comUn):
     def __init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini): 
         super().__init__(name, idr, hp, hitChance, dmg, ac, dodge, ini)
         #distinguish enemy
