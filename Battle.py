@@ -11,12 +11,6 @@ class Battle:
         self.enemyArmy = enemyArmy
         pass
         
-    def mergeInit(self):
-        heroes = self.heroArmy.units
-        enemies =  self.enemyArmy.units
-        
-        omniArmy = army.Army(heroes+enemies)
-        payload = omniArmy.sortSelf
         
     
     def fightOneRound(self):
@@ -28,6 +22,6 @@ class Battle:
     def fightRounds(self, rdCount):
         #iterate over fight logic
         for i in range(rdCount):
-            print ("Round",i+1)
+            print (">>> Round",i+1)
             self.fightOneRound()
             
