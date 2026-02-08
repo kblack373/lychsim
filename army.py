@@ -2,7 +2,7 @@
 # simulator to experiment with Lychgate RPG combat scenarios
 # combat unit Army container class
 
-import ComUn
+import comUn
 
 class Army:
     def __init__(self, lsUnits):
@@ -10,6 +10,7 @@ class Army:
         self.sortSelf()
     
     def unitIndexer(self, n):
+        #uses initiative (ini) as index
         return n.ini
     
     def sortSelf(self):

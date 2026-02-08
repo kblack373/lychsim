@@ -2,8 +2,8 @@
 # simulator to experiment with Lychgate RPG combat scenarios
 # battle class; instance of one fight
 
-import ComUn
-import Army
+import comUn
+import army
 
 class Battle:
     def __init__(self, heroArmy, enemyArmy):
@@ -11,9 +11,18 @@ class Battle:
         self.enemyArmy = enemyArmy
         pass
         
+    def mergeInit(self):
+        heroes = self.heroArmy.units
+        enemies =  self.enemyArmy.units
+        
+        omniArmy = Army.Army(heroes+enemies)
+        payload = omniArmy.sortSelf
+        
+    
     def fightOneRound(self):
         #todo: carry out one round of combat
         
+        #step 1: determine order, shuffle the actors together.
         
         
     def fightRounds(self, rdCount):

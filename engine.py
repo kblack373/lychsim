@@ -2,8 +2,8 @@
 # simulator to experiment with Lychgate RPG combat scenarios
 # engine class; contains game logic
 import csv
-import Army
-import ComUn
+import army
+import comUn
 
 
 class Engine:
