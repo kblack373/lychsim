@@ -17,10 +17,6 @@ class comUn:
         self.ready=1
 
 
-#c1 = comUn("herp", 1, 25, 50.00, 7, 6, 1)
-#print(c1.name)
-
-
 #hp functions
     def setHp(self, inHp):
         self.hp = inHp
