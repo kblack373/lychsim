@@ -17,7 +17,6 @@ class Battle:
     def fightOneRound(self):
         #todo: carry out one round of combat
         print("The fight begins...")
-        time.sleep(3)
         #step 1: determine order
         #the two armies are self-sorting, so the highest init will always be at the top
         #toss-up
@@ -27,18 +26,19 @@ class Battle:
         topHero = heroes.topOne()
         topEnemy = enemies.topOne()
         while (topHero.idr != 0 or topEnemy.idr != 0):
+            print(topHero.name, "vs", topEnemy.name)
             #compare the two inits; favor heroes
             if (topHero.ini >= topEnemy.ini):
                 print(topHero.name)
                 #hero gets to strike
                 #0 = top of the pile
                 #todo: add attack decision logic
-                topHero.attack(enemies.topOne())
+                topHero.attack(enemies.getTopTarget())
                 topHero.exhaust()
             else:
                 print(topEnemy.name)
                 #enemy strikes first
-                topEnemy.attack(heroes.topOne())
+                topEnemy.attack(heroes.getTopTarget())
                 topEnemy.exhaust()
             
             #get top of the init for each army

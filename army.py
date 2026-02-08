@@ -16,9 +16,9 @@ class Army:
     def sortSelf(self):
         units = self.units
         units.sort(key = self.unitIndexer)
+        units.reverse()
         self.units = units
         return units 
-        
     
     def add(self, inUnit):
         units = self.units
@@ -48,14 +48,16 @@ class Army:
             
 
     def top(self,i):
-        #print("method called.")
+       ## print("method called.", i)
         #access and remove first element
-        if (len(self.units)>i+1):
-            #print("length correct.")
+        if (len(self.units)>=i+1):
+            ##print("length correct.")
             top = self.units[i]
             if (top.ready):
+                ##print("returning top of pack:", top.name)
                 return top
             else:
+                ##print("going deeper...")
                 #otherwise recursive call to find the next in line who is ready
                 # ready = no action this round
                 return self.top(i+1)
@@ -68,3 +70,6 @@ class Army:
         return self.top(0)    
     def getCount(self):
         return len(self.units)
+        
+    def getTopTarget(self):
+        return self.units[0]
