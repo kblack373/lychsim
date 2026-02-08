@@ -75,9 +75,6 @@ class comUn:
             #report a miss
             print(self.name, "swings and misses.")
     
-    def attackTarget(self, inTarget):
-        if (inTarget==0):
-            attack
     
     def exhaust(self):
         self.ready=0
