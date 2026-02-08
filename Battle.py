@@ -49,7 +49,7 @@ class Battle:
         #wrap the armies back up
         self.heroArmy = heroes
         self.enemyArmy = enemies
-        
+        print("The fight concludes.")
         return (self.heroArmy, self.enemyArmy)
         
     def fightRounds(self, rdCount):
