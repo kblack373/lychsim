@@ -4,6 +4,7 @@
 
 import comUn
 import army
+import time
 
 class Battle:
     def __init__(self, heroArmy, enemyArmy):
@@ -15,9 +16,41 @@ class Battle:
     
     def fightOneRound(self):
         #todo: carry out one round of combat
+        print("The fight begins...")
+        time.sleep(3)
+        #step 1: determine order
+        #the two armies are self-sorting, so the highest init will always be at the top
+        #toss-up
+        heroes = self.heroArmy
+        enemies = self.enemyArmy
+        turnCount = heroes.getCount() + enemies.getCount()
+        topHero = heroes.topOne()
+        topEnemy = enemies.topOne()
+        while (topHero.idr != 0 or topEnemy.idr != 0):
+            #compare the two inits; favor heroes
+            if (topHero.ini >= topEnemy.ini):
+                print(topHero.name)
+                #hero gets to strike
+                #0 = top of the pile
+                #todo: add attack decision logic
+                topHero.attack(enemies.topOne())
+                topHero.exhaust()
+            else:
+                print(topEnemy.name)
+                #enemy strikes first
+                topEnemy.attack(heroes.topOne())
+                topEnemy.exhaust()
+            
+            #get top of the init for each army
+            topHero = heroes.topOne()
+            topEnemy = enemies.topOne()
+            time.sleep(1)
         
-        #step 1: determine order, shuffle the actors together.
+        #wrap the armies back up
+        self.heroArmy = heroes
+        self.enemyArmy = enemies
         
+        return (self.heroArmy, self.enemyArmy)
         
     def fightRounds(self, rdCount):
         #iterate over fight logic

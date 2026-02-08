@@ -14,6 +14,7 @@ class comUn:
         self.dodge = float(dodge)
         self.ini = int(ini)
         self.alive=1
+        self.ready=1
 
 
 #c1 = comUn("herp", 1, 25, 50.00, 7, 6, 1)
@@ -74,6 +75,14 @@ class comUn:
             #report a miss
             print(self.name, "swings and misses.")
     
+    def attackTarget(self, inTarget):
+        if (inTarget==0):
+            attack
+    
+    def exhaust(self):
+        self.ready=0
+        return 1
+        
 class Hero(comUn):
     def __init__(self, name, idr, hp, hitChance, dmg, ac, dodge, ini): 
         super().__init__(name, idr, hp, hitChance, dmg, ac, dodge, ini)

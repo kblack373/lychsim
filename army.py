@@ -46,3 +46,25 @@ class Army:
             print("Initiative: ", u.ini)
             print("")
             
+
+    def top(self,i):
+        #print("method called.")
+        #access and remove first element
+        if (len(self.units)>i+1):
+            #print("length correct.")
+            top = self.units[i]
+            if (top.ready):
+                return top
+            else:
+                #otherwise recursive call to find the next in line who is ready
+                # ready = no action this round
+                return self.top(i+1)
+        else: 
+            #if there's noone left, return a blank unit with idr=0
+            #this terminates the round if both armies have idr=0 as top
+            return comUn.comUn('null',0,0,0,0,0,0,0)
+    
+    def topOne(self):
+        return self.top(0)    
+    def getCount(self):
+        return len(self.units)

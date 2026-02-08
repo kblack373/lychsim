@@ -4,13 +4,14 @@
 import csv
 import army
 import comUn
-
+import battle
 
 class Engine:
     def __init__(self):        
         #init empty
         self.party = None
         self.horde = None
+        self.battle = None
         pass
     
     def parseConfig(self, inFileName):
@@ -52,4 +53,6 @@ e.party.report()
 print("Reporting Enemies...")
 e.horde.report()
 
-e.party.units[0].attack(e.horde.units[0])
+#e.party.units[0].attack(e.horde.units[0])
+e.battle = battle.Battle(e.party,e.horde)
+e.battle.fightOneRound()
