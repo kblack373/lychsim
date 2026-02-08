@@ -26,19 +26,19 @@ class Battle:
         topHero = heroes.topOne()
         topEnemy = enemies.topOne()
         while (topHero.idr != 0 or topEnemy.idr != 0):
-            print(topHero.name, "vs", topEnemy.name)
+            #print(topHero.name, "vs", topEnemy.name)
             #compare the two inits; favor heroes
             if (topHero.ini >= topEnemy.ini):
                 print(topHero.name)
                 #hero gets to strike
                 #0 = top of the pile
                 #todo: add attack decision logic
-                topHero.attack(enemies.getTopTarget())
+                topHero.attack(enemies.getTopTarget(0))
                 topHero.exhaust()
             else:
                 print(topEnemy.name)
                 #enemy strikes first
-                topEnemy.attack(heroes.getTopTarget())
+                topEnemy.attack(heroes.getTopTarget(0))
                 topEnemy.exhaust()
             
             #get top of the init for each army
@@ -57,4 +57,5 @@ class Battle:
         for i in range(rdCount):
             print (">>> Round",i+1)
             self.fightOneRound()
-            
+            self.enemyArmy.readyUpAll()
+            self.heroArmy.readyUpAll()

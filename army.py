@@ -71,5 +71,26 @@ class Army:
     def getCount(self):
         return len(self.units)
         
-    def getTopTarget(self):
-        return self.units[0]
+    def getTopTarget(self, i):
+        
+        x = self.getCount()
+        print("x",x)
+        print("i",i)
+        if (x >= i):
+            print("logic'd")
+            pot = self.units[i]
+            print(pot)
+            print(pot.name)
+            if (pot.alive):
+                return pot
+            else:
+                self.getTopTarget(i+1)
+        else:
+            print("something is wrong")
+            return None
+        
+    def readyUpAll(self):
+        units = self.units
+        for u in units:
+            if u.alive:
+                u.ready=1

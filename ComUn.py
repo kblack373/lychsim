@@ -18,6 +18,14 @@ class comUn:
 
 
 #hp functions
+    def checkDeath(self):
+        if(self.hp<=0):
+            print(self.name, "has fallen to their wounds.")
+            self.alive=0
+            self.ready=0
+            return 1
+        else:
+            return 0
     def setHp(self, inHp):
         self.hp = inHp
         return self.alive
@@ -25,6 +33,7 @@ class comUn:
     def subHp(self, inHp):
         self.hp -= inHp
         reportHp = self.hp
+        self.checkDeath()
         return reportHp
         
     def addHp(self, inHp):
