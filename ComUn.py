@@ -28,7 +28,7 @@ class ComUn:
     def subHp(self, inHp):
         self.hp -= inHp
         reportHp = self.hp
-        return report
+        return reportHp
         
     def addHp(self, inHp):
         self.hp += inHp
