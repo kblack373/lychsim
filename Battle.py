@@ -33,8 +33,14 @@ class Battle:
                 #hero gets to strike
                 #0 = top of the pile
                 #todo: add attack decision logic
-                topHero.attack(enemies.getTopTarget(0))
-                topHero.exhaust()
+                targetNow = enemies.getTopTarget(0)
+                if (targetNow is None or targetNow.name=='null'):
+                    print("No targets that", topHero.name,"can hit.")
+                    topHero.exhaust()
+                else:
+                    print(topHero.name,"attacks",targetNow.name)
+                    topHero.attack(targetNow)
+                    topHero.exhaust()
             else:
                 print(topEnemy.name)
                 #enemy strikes first
@@ -57,5 +63,13 @@ class Battle:
         for i in range(rdCount):
             print (">>> Round",i+1)
             self.fightOneRound()
+            self.enemyArmy.report()
+            self.heroArmy.report()
+            if (self.enemyArmy.getTopTarget(0).name is 'null'):
+                print("All enemies successfully defeated. Heroes win!")
+                return 0
+            elif (self.heroArmy.getTopTarget(0).name is 'null'):
+                print("All heroes have been slaughtered in combat. Defeat...")
+                return 0
             self.enemyArmy.readyUpAll()
             self.heroArmy.readyUpAll()

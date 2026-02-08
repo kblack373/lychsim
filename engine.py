@@ -60,3 +60,5 @@ print("Reporting Heroes...")
 e.party.report()
 print("Reporting Enemies...")
 e.horde.report()
+
+e.battle.fightRounds(50)

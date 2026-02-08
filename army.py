@@ -71,23 +71,24 @@ class Army:
     def getCount(self):
         return len(self.units)
         
-    def getTopTarget(self, i):
-        
-        x = self.getCount()
-        print("x",x)
-        print("i",i)
-        if (x >= i):
-            print("logic'd")
-            pot = self.units[i]
-            print(pot)
-            print(pot.name)
-            if (pot.alive):
-                return pot
+    def getTopTarget(self,i):
+       ## print("method called.", i)
+        #access and remove first element
+        if (len(self.units)>=i+1):
+            ##print("length correct.")
+            top = self.units[i]
+            if (top.alive):
+                ##print("returning top of pack:", top.name)
+                return top
             else:
-                self.getTopTarget(i+1)
-        else:
-            print("something is wrong")
-            return None
+                ##print("going deeper...")
+                #otherwise recursive call to find the next in line who is ready
+                # ready = no action this round
+                return self.getTopTarget(i+1)
+        else: 
+            #if there's noone left, return a blank unit with idr=0
+            #this terminates the round if both armies have idr=0 as top
+            return comUn.comUn('null',0,0,0,0,0,0,0)
         
     def readyUpAll(self):
         units = self.units
