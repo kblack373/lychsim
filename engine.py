@@ -55,7 +55,7 @@ e.horde.report()
 
 #e.party.units[0].attack(e.horde.units[0])
 e.battle = battle.Battle(e.party,e.horde)
-e.battle.fightOneRound()
+#e.battle.fightOneRound()
 print("Reporting Heroes...")
 e.party.report()
 print("Reporting Enemies...")

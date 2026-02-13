@@ -76,7 +76,7 @@ class comUn:
                 print(self.name, "deals", netDmg, "to", inTarget.name)
                 
                 #return 1 true for successful hit
-                return 1
+                return netDmg
             else:
                 #report a miss
                 print(self.name, "swings but", inTarget.name, " is too quick!")
