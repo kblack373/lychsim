@@ -23,7 +23,7 @@ class Battle:
         return 1
         
     def logSave(self):
-        print("called local method")
+        #print("called local method")
         self.combatLog.writeFile()
         return 1
         
@@ -37,16 +37,16 @@ class Battle:
         enemies = self.enemyArmy
         turnCount = heroes.getCount() + enemies.getCount()
         topHero = heroes.topOne()
-        topEnemy = enemies.topOne()
-        #init an empty list to insert a log for the current round of cmbat
-        curRdLog = []
-        #insert round count (ie round number) into first slot
-        curRdLog.append(logRdCount)
+        topEnemy = enemies.topOne()     
         #track turns
         logTurnCount = 0
         while (topHero.idr != 0 or topEnemy.idr != 0):
+            #init an empty list to insert a log for the current round of cmbat
+            curTurnLog = []
+            #insert round count (ie round number) into first slot
+            curTurnLog.append(logRdCount)
             # insert and increment turn count
-            curRdLog.append(logTurnCount)
+            curTurnLog.append(logTurnCount)
             logTurnCount += 1
             turnResultBus = []
             #print(topHero.name, "vs", topEnemy.name)
@@ -72,10 +72,10 @@ class Battle:
                     # write results to log list
                     turnResultBus = [logCharId, logCurHp, logMaxHp, logDmg, logTargetId]
                     for t in turnResultBus:
-                        curRdLog.append(t)
+                        curTurnLog.append(t)
                     topHero.exhaust()
                     # insert into combat log struct
-                    self.combatLog.insertLog(curRdLog)
+                    self.combatLog.insertLog(curTurnLog)
                     
             else:
                 print(topEnemy.name)
@@ -91,17 +91,16 @@ class Battle:
                 # write results to log list
                 turnResultBus = [logCharId, logCurHp, logMaxHp, logDmg, logTargetId]
                 for t in turnResultBus:
-                    curRdLog.append(t)
+                    curTurnLog.append(t)
                 topEnemy.exhaust()
                 # insert into combat log struct
-                self.combatLog.insertLog(curRdLog)
+                self.combatLog.insertLog(curTurnLog)
                 
             #get top of the init for each army
             topHero = heroes.topOne()
             topEnemy = enemies.topOne()
-            
-            # end of function
-            return
+            print("Next Hero: ", topHero.name)
+            print("Next Enemy: ", topEnemy.name)
         
         #wrap the armies back up
         self.heroArmy = heroes

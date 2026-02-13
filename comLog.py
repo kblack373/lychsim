@@ -18,13 +18,13 @@ class CombatLogger:
         
         
     def writeFile(self):
-        print("called inner method")
+        #print("called inner method")
         #local vars
         fname = self.logFileName 
         output = self.combatLogArr
-        print(output)
+        #print(output)
         
-        with open(fname, 'w') as csvFile:
+        with open(fname, 'w', newline='') as csvFile:
            print ("Writing to ", fname, "...")
            csvWrit = csv.writer(csvFile)
            csvWrit.writerows(output)
