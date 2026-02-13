@@ -48,17 +48,15 @@ class Army:
             
 
     def top(self,i):
-       ## print("method called.", i)
-        #access and remove first element
+        #invoked: army.top(0)
         if (len(self.units)>=i+1):
             ##print("length correct.")
             top = self.units[i]
             if (top.ready):
-                ##print("returning top of pack:", top.name)
+                #if top ready, return top of pack
                 return top
             else:
-                ##print("going deeper...")
-                #otherwise recursive call to find the next in line who is ready
+                #otherwise recursive call to find the next ready
                 # ready = no action this round
                 return self.top(i+1)
         else: 

@@ -1,10 +1,10 @@
 combat unit
 	- class (1=Hero, 0=Enemy)
 	- name
-	- id
+	- idr (unique id)
 	- health(HP)
 	- chance to hit
 	- damage
 	- armor class
+	- dodge
 	- initiative
-	
