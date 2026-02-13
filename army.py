@@ -32,7 +32,7 @@ class Army:
         units = self.units
         for u in units:
             print("------------")
-            print(u.name)
+            print(u.name, "id", u.idr)
             print("------------")
             print("Hit Points: ", u.hp)
             if (u.alive):
