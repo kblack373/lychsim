@@ -1,14 +1,14 @@
 # To-Do
-Implement logging to run deep analysis
+-[x] Implement logging to run deep analysis
+-[]  Enhance the combat system to reflect ideal Implementation
+
 
 ## Tasks
 
-On each turn of combat (event), log to the following data structure:
-
-
-Need 2D array (maybe 3D):
-
-Hero/Enemy Health at turn end,
-Hero/Enemy Damage Dealt at each turn,
-IF HERO/Enemy Hit Each Turn,
-Hero/Enemy Targeted Each Turn
+### Combat Flow
+#### When any unit attacks:
+1. roll d100
+2. add *the unit's* **accuraccy property**
+3. if this sum is greater than the *target's* **dodge property**: it is a HIT.
+4. otherwise, it is a MISS.
+5. if it is a HIT, apply the *unit's* DMG minus the *target's* AC.
