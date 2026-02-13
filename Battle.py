@@ -48,6 +48,7 @@ class Battle:
             # insert and increment turn count
             curRdLog.append(logTurnCount)
             logTurnCount += 1
+            turnResultBus = []
             #print(topHero.name, "vs", topEnemy.name)
             #compare the two inits; favor heroes
             if (topHero.ini >= topEnemy.ini):
@@ -73,30 +74,34 @@ class Battle:
                     for t in turnResultBus:
                         curRdLog.append(t)
                     topHero.exhaust()
+                    # insert into combat log struct
+                    self.combatLog.insertLog(curRdLog)
+                    
             else:
                 print(topEnemy.name)
                 #enemy strikes first
-                targetNow = heroes.getTopTarget(0)
-                result = topEnemy.attack(targetNow)
+                targetHeroNow = heroes.getTopTarget(0)
+                result = topEnemy.attack(targetHeroNow)
                 logCharId = topEnemy.idr
                 logCurHp    = topEnemy.hp
                 logMaxHp = topEnemy.maxHp
                 # now get if hit was successful
                 logDmg      = result
-                logTargetId   = targetNow.idr
+                logTargetId   = targetHeroNow.idr
                 # write results to log list
                 turnResultBus = [logCharId, logCurHp, logMaxHp, logDmg, logTargetId]
                 for t in turnResultBus:
                     curRdLog.append(t)
                 topEnemy.exhaust()
-            
+                # insert into combat log struct
+                self.combatLog.insertLog(curRdLog)
+                
             #get top of the init for each army
             topHero = heroes.topOne()
             topEnemy = enemies.topOne()
             
-            #time.sleep(1)
-            #insert full log payload list into the combat log
-            self.combatLog.insertLog(curRdLog)
+            # end of function
+            return
         
         #wrap the armies back up
         self.heroArmy = heroes
@@ -114,8 +119,8 @@ class Battle:
         for i in range(rdCount):
             print (">>> Round",i+1)
             self.fightOneRound(i)
-            self.enemyArmy.report()
-            self.heroArmy.report()
+            #self.enemyArmy.report()
+            #self.heroArmy.report()
             if (self.enemyArmy.getTopTarget(0).name == 'null'):
                 print("All enemies successfully defeated. Heroes win!")
                 self.endBattle()
@@ -127,4 +132,7 @@ class Battle:
             self.enemyArmy.readyUpAll()
             self.heroArmy.readyUpAll()
         
-        
+        # default behavior 
+        print ("No winners! all sides walk away bruised...")
+        self.endBattle()
+        return 0

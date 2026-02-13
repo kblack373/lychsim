@@ -12,7 +12,7 @@ class CombatLogger:
         
         
     def insertLog(self, listFeats):
-        
+        print("logged: ", listFeats)
         self.combatLogArr.append(listFeats)
         return 1
         
