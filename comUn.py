@@ -8,6 +8,7 @@ class comUn:
         self.name = name
         self.idr = int(idr)
         self.hp = int(hp)
+        self.maxHp = self.hp
         self.hitChance = float(hitChance)
         self.dmg = int(dmg)
         self.ac = int(ac)
@@ -73,12 +74,20 @@ class comUn:
                 netDmg = dmg - inTarget.ac
                 inTarget.subHp(netDmg)
                 print(self.name, "deals", netDmg, "to", inTarget.name)
+                
+                #return 1 true for successful hit
+                return netDmg
             else:
                 #report a miss
                 print(self.name, "swings but", inTarget.name, " is too quick!")
+                
+                #return 0 false for miss
+                return 0
         else:
             #report a miss
             print(self.name, "swings and misses.")
+            #return 0 false for miss
+            return 0
     
     
     def exhaust(self):
