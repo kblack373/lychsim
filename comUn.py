@@ -65,9 +65,11 @@ class comUn:
         
         
         #roll a D100 to swing at the target
-        roll = random.randrange(1,100)
+        roll = random.randrange(1,75)
+        print(self.name, "rolled a", roll)
         # add the roll value to our base accuracy
         netAcc = acc + roll
+        print(self.name, "added", acc, "to their roll for" , netAcc)
         thresh = inTarget.dodge
         #
         if (netAcc > thresh):
@@ -81,6 +83,7 @@ class comUn:
         else:
             #report a miss
             print(self.name, "swings but", inTarget.name, " is too quick!")
+            print(inTarget.name, "had a dodge of", thresh)
             #return 0 false for miss
             return 0
     
