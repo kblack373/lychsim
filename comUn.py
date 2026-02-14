@@ -61,31 +61,26 @@ class comUn:
         acc = self.hitChance
         dmg = self.dmg
         
-        #take a swing
-        swing = random.randrange(1,100)
+        # TODO : imeplement new hit/dodge algorithm
         
-        #check if our swing is within our acc threshold
-        if (swing <= acc):
-            #that's a potential hit
-            #now check against dodge
-            if (not(inTarget.tryDodge(swing))):
-                #that's a confirmed hit!
-                #now apply damage
-                netDmg = dmg - inTarget.ac
-                inTarget.subHp(netDmg)
-                print(self.name, "deals", netDmg, "to", inTarget.name)
-                
-                #return 1 true for successful hit
-                return netDmg
-            else:
-                #report a miss
-                print(self.name, "swings but", inTarget.name, " is too quick!")
-                
-                #return 0 false for miss
-                return 0
+        
+        #roll a D100 to swing at the target
+        roll = random.randrange(1,100)
+        # add the roll value to our base accuracy
+        netAcc = acc + roll
+        thresh = inTarget.dodge
+        #
+        if (netAcc > thresh):
+            netDmg = dmg - inTarget.ac
+            inTarget.subHp(netDmg)
+            print(self.name, "deals", netDmg, "to", inTarget.name)
+            
+            #return 1 true for successful hit
+            return netDmg
+       
         else:
             #report a miss
-            print(self.name, "swings and misses.")
+            print(self.name, "swings but", inTarget.name, " is too quick!")
             #return 0 false for miss
             return 0
     
