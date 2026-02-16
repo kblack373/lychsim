@@ -6,7 +6,7 @@
 namespace Lychgate
 {
     //base combat unit class
-    public class comUn
+    public class ComUn
     {
         public string Name;
         public int Idr;
@@ -23,7 +23,7 @@ namespace Lychgate
         {   //make sure this level is working.
             Console.WriteLine("CreateUnit is working.");
         }
-        public comUn(string name, int idr, int hp, double hitChance, int dmg, int ac, double dodge, int ini)
+        public ComUn(string name, int idr, int hp, double hitChance, int dmg, int ac, double dodge, int ini)
         {
             Name = name;
             Idr = idr;

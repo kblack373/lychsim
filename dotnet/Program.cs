@@ -9,7 +9,7 @@ namespace Lychgate
         static void Main(string[] args)
         {
             //Console.WriteLine("Hello, World!");
-            comUn.CreateUnit();
+            ComUn.CreateUnit();
             Console.ReadLine(); // keeps console open
         }
         //Console.ReadLine(); 
