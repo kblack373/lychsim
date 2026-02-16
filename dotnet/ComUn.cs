@@ -75,6 +75,8 @@ namespace Lychgate
                 Ready = true;
             }
         }
+
+        //todo: implement Attack() method
     }
 }
 
