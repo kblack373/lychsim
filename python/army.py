@@ -71,7 +71,6 @@ class Army:
         
     def getTopTarget(self,i):
        ## print("method called.", i)
-        #access and remove first element
         if (len(self.units)>=i+1):
             ##print("length correct.")
             top = self.units[i]
