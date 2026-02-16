@@ -3,7 +3,7 @@
 
 
 
-namespace lychgate_sim
+namespace Lychgate
 {
     //base combat unit class
     public class comUn

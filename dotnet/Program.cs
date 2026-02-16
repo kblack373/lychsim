@@ -2,7 +2,7 @@
 using System;
 //using ComUn;
 
-namespace lychgate_sim
+namespace Lychgate
 {
     class Program
     {
