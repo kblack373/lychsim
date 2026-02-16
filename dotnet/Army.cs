@@ -1,12 +1,5 @@
 ﻿using Lychgate;
 using System;
-using System.ComponentModel.Design;
-using System.Diagnostics.Tracing;
-using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.Swift;
-using System.Runtime.Intrinsics.Arm;
 //todo: import comUn class
 
 public class Army
