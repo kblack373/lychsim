@@ -1,6 +1,9 @@
 ﻿using Lychgate;
 using System;
+using System.ComponentModel.Design;
+using System.Diagnostics.Tracing;
 using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.Swift;
 using System.Runtime.Intrinsics.Arm;
@@ -33,7 +36,7 @@ public class Army
 		return true;
 	}
 
-	public int GetLength()
+	public int GetCount()
 	{
 		int len = this.unitList.Count;
 		return len;
@@ -45,7 +48,7 @@ public class Army
 		//adds a unit, sorts itself, then returns the new length
 		this.unitList.Add(inUnit);
 		this.SortSelf();
-		return this.GetLength();
+		return this.GetCount();
 	}
 
 	public List<String> Report()
@@ -91,4 +94,90 @@ public class Army
 
         return rptStrBus;
 	}
+
+	public ComUn Top(int index)
+	{
+		//recursive function to find the top ready unit
+		ComUn rtnUnit;
+		//check if the index is out of range
+		if (this.unitList.Count >= index + 1)
+		{
+			//inspect the unit of the current index
+			rtnUnit = this.unitList[index];
+			//check if that unit is ready
+			if (rtnUnit.Ready)
+			{
+				//if the unit is ready, then they are the top ready unit.
+				return rtnUnit;
+
+			} 
+			else
+			{
+				//otherwise we need to go to the next lowest initiative.
+				//because the Army class is self-sorting, we know the next index will be the next highest initative.
+				//so we increment our current index then call this method on itseld again.
+				return this.Top(index + 1);
+			}
+		}
+		else
+		{
+			//if we reach this section, it means there's noone left in the army.
+			//to signify this, we return a unit with a NULL name and all 0s
+			return new ComUn("null", 0, 0, 0, 0, 0, 0, 0);
+			//this terminates the round sequence in the Battle class.
+		}
+
+	}
+    public ComUn TopOne()
+    {
+        ComUn payload = this.Top(0);
+		return payload;
+	}
+	public ComUn GetTopTarget(int index)
+	{
+        // this is the SAME LOGIC as this.Top() with the difference being that this
+        // only returns the top ALIVE unit instead of top ready unit
+
+		ComUn rtnUnit;
+        //check if the index is out of range
+        if (this.unitList.Count >= index + 1)
+        {
+            //inspect the unit of the current index
+            rtnUnit = this.unitList[index];
+			//check if that unit is ready
+			if (rtnUnit.Alive)
+            {
+                //if the unit is ready, then they are the top ready unit.
+                return rtnUnit;
+
+            }
+            else
+            {
+                //otherwise we need to go to the next lowest initiative.
+                //because the Army class is self-sorting, we know the next index will be the next highest initative.
+                //so we increment our current index then call this method on itseld again.
+                return this.Top(index + 1);
+            }
+        }
+        else
+        {
+            //if we reach this section, it means there's noone left in the army.
+            //to signify this, we return a unit with a NULL name and all 0s
+            return new ComUn("null", 0, 0, 0, 0, 0, 0, 0);
+            //this terminates the round sequence in the Battle class.
+        }
+
+
+    }
+
+	public void ReadyUpAll()
+	{
+		// in python we do this by passsing by reference and using local references
+		// C# is pass-by-value so I implemented ComUn.ReadyUp() in that class
+		foreach (ComUn u in this.unitList)
+		{
+			u.ReadyUp();
+		}
+	}
 }
+

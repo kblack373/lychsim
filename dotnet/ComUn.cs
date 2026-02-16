@@ -67,6 +67,14 @@ namespace Lychgate
             Hp = Hp - addHp;
             return Hp;
         }
+
+        public void ReadyUp()
+        {
+            if (Alive)
+            {
+                Ready = true;
+            }
+        }
     }
 }
 
