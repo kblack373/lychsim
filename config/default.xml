@@ -3,7 +3,7 @@
 	<army alignment="heroes">	
 		<unit>
 			<name>Link</name>
-			<id>10</id>
+			<idr>10</idr>
 			<hp>25</hp>
 			<accuracy>50</accuracy>
 			<damage>6</damage>
@@ -13,7 +13,7 @@
 		</unit>
 		<unit>
 			<name>Master Chief</name>
-			<id>11</id>
+			<idr>11</idr>
 			<hp>50</hp>
 			<accuracy>75</accuracy>
 			<damage>2</damage>
@@ -23,7 +23,7 @@
 		</unit>
 		<unit>
 			<name>Nathan Drake</name>
-			<id>12</id>
+			<idr>12</idr>
 			<hp>30</hp>
 			<accuracy>15</accuracy>
 			<damage>10</damage>
@@ -35,7 +35,7 @@
 	<army alignment="enemies">
 		<unit>
 			<name>Goblin</name>
-			<id>20</id>
+			<idr>20</idr>
 			<hp>5</hp>
 			<accuracy>50</accuracy>
 			<damage>6</damage>
@@ -45,7 +45,7 @@
 		</unit>
 		<unit>
 			<name>Troll</name>
-			<id>21</id>
+			<idr>21</idr>
 			<hp>20</hp>
 			<accuracy>50</accuracy>
 			<damage>3</damage>
@@ -55,7 +55,7 @@
 		</unit>
 		<unit>
 			<name>Golbin Archer</name>
-			<id>30</id>
+			<idr>30</idr>
 			<hp>5</hp>
 			<accuracy>70</accuracy>
 			<damage>1</damage>

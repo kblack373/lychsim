@@ -23,6 +23,12 @@ public class LychEngine
 
 	public void OpenXml()
 	{
+        //kb 2 16 2026
+        //thinking we throw this method in the fucking trash and start again.
+        //way too complicated.
+        //use this instead: https://stackoverflow.com/a/55840
+
+
         // reading in the XML using LINQ 
         // https://stackoverflow.com/a/670569
         XDocument xdoc = XDocument.Load(XmlFilePath);
@@ -56,6 +62,7 @@ public class LychEngine
 			foreach (var lv2 in lv1.units)
 			{
 				//to do: populate units
+
 
 			}
 
