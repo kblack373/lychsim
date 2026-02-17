@@ -32,6 +32,9 @@ public class Battle
         ComUn topMob =  mobArmy.TopOne();
 		ComUn targetNow; //empty for now, placeholder
 
+		//init local vars
+		int netDmg = 0;
+
 		//keep fighting until we run out of valid heros or mobs
 		while (topHero.Idr != 0 && topMob.Idr != 0)
 		{
@@ -50,14 +53,58 @@ public class Battle
                     msgBus = topHero.Name + " attacks " + targetNow.Name;
                     printAction(msgBus);
 					//hero attacks
-					topHero.Attack(targetNow);
+					netDmg = topHero.Attack(targetNow);
+					targetNow.SubHP(netDmg);
+					topHero.Exhaust();
+
+                } else
+				{
+					// there are no eligible targets
+					msgBus = "No targets that " + topHero.Name + " can hit.";
+					printAction(msgBus);
+
+					topHero.Exhaust();
+
+
                 }
             } 
 			else
             {
 				// enemy mob take a turn
+
+				msgBus = topMob.Name + " moves in for an attack...";
+				printAction(msgBus);
+
+                //get the top target from the hero army
+                targetNow = heroArmy.GetTopTarget(0);
+				if (targetNow != null && targetNow.Name != "null" && targetNow.Idr != 0)
+				{
+					//we have a valid target for sure
+					msgBus = topMob.Name + " attacks " + targetNow.Name;
+					printAction(msgBus);
+					//mob attacks
+					netDmg = topMob.Attack(targetNow);
+					targetNow.SubHP(netDmg);
+					topMob.Exhaust();
+
+				}
+				else
+				{
+					// there are no eligible targets
+					msgBus = "No targets that " + topMob.Name + " can hit.";
+					printAction(msgBus);
+
+					topMob.Exhaust();
+
+				}
             }
-			turnCount++;
+			//next turn
+			topHero = heroArmy.TopOne();
+			topMob = mobArmy.TopOne();
+
+			msgBus = "Next Hero: " + topHero.Name + Environment.NewLine + "Next Enemy: " + topMob.Name;
+            printAction(msgBus);
+            turnCount++;
         }
 
 		return turnCount;

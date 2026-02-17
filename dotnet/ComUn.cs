@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.Swift;
 using System.Security.Principal;
 
 
@@ -62,9 +63,9 @@ namespace Lychgate
             Hp = Hp + addHp;
             return Hp;
         }
-        public int SubHP(int addHp)
+        public int SubHP(int minusHp)
         {
-            Hp = Hp - addHp;
+            Hp = Hp - minusHp;
             return Hp;
         }
 
@@ -112,6 +113,12 @@ namespace Lychgate
                 return -1;
             }
 
+        }
+
+        public void Exhaust()
+        {
+            //unit has taken its turn for the round.
+            this.Ready = false;
         }
     }
 }
