@@ -79,7 +79,7 @@ namespace Lychgate
 
         //todo: implement Attack() method
 
-        private bool tryHit(double acc, double targetDodge)
+        private bool TryHit(double acc, double targetDodge)
         {
             Random d100 = new();
             double roll = d100.NextDouble();
@@ -102,7 +102,7 @@ namespace Lychgate
         public int Attack(ComUn inTarget)
         {
             //roll D100
-            bool hit = tryHit(this.HitChance, inTarget.Dodge);
+            bool hit = TryHit(this.HitChance, inTarget.Dodge);
             if (hit)
             {
                 int netDmg = this.Dmg = inTarget.Ac;
