@@ -9,8 +9,11 @@ namespace Lychgate
         static void Main(string[] args)
         {
             //Console.WriteLine("Hello, World!");
-            ComUn.CreateUnit();
-            Console.ReadLine(); // keeps console open
+            //ComUn.CreateUnit();
+            //Console.ReadLine(); // keeps console open
+
+            LychEngine eng = new(@"C:\Users\kenda\OneDrive\Documents\development\lychgate\simulation\config\default.xml");
+            eng.OpenXml();
         }
         //Console.ReadLine(); 
     }

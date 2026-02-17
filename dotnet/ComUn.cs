@@ -25,7 +25,7 @@ namespace Lychgate
         public int Idr;
         public int Hp;
         public int MaxHp;
-        public double HitChance;
+        public double Accuracy;
         public int Dmg;
         public int Ac;
         public double Dodge;
@@ -44,7 +44,7 @@ namespace Lychgate
             Idr = idr;
             Hp = hp;
             MaxHp = hp;
-            HitChance = hitChance;
+            Accuracy = hitChance;
             Dmg = dmg;
             Ac = ac;
             Dodge = dodge;
@@ -116,7 +116,7 @@ namespace Lychgate
         public int Attack(ComUn inTarget)
         {
             //roll D100
-            bool hit = TryHit(this.HitChance, inTarget.Dodge);
+            bool hit = TryHit(this.Accuracy, inTarget.Dodge);
             if (hit)
             {
                 int netDmg = this.Dmg = inTarget.Ac;

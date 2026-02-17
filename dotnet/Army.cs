@@ -72,7 +72,7 @@ public class Army
 				line = "Status: Dead";
 			}
 			rptStrBus.Append(line);
-			line = "Accuracy: " + u.HitChance;
+			line = "Accuracy: " + u.Accuracy;
             rptStrBus.Append(line);
 			line = "Damage: " + u.Dmg;
 			rptStrBus.Append(line);
