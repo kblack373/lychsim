@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Security.Principal;
 
 
 
@@ -72,13 +72,50 @@ namespace Lychgate
         {
             if (Alive)
             {
-                Ready = true;
+                this.Ready = true;
             }
         }
 
         //todo: implement Attack() method
+
+        private bool tryHit(double acc, double targetDodge)
+        {
+            Random d100 = new();
+            double roll = d100.NextDouble();
+
+            roll += acc;
+
+            if (roll > targetDodge)
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+
+            }
+
+        }
+
+        public int Attack(ComUn inTarget)
+        {
+            //roll D100
+            bool hit = tryHit(this.HitChance, inTarget.Dodge);
+            if (hit)
+            {
+                int netDmg = this.Dmg = inTarget.Ac;
+                return netDmg;
+            } else
+            {
+                //unique error code if a total miss; net dmg can be zero.
+                return -1;
+            }
+
+        }
     }
 }
 
+//todo: extend class to Hero and Enemy subclasses
 
 

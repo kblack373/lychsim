@@ -49,9 +49,8 @@ public class Battle
                     //we have a valid target for sure
                     msgBus = topHero.Name + " attacks " + targetNow.Name;
                     printAction(msgBus);
-
-					//ComUn.Attack(targetNow);
-					// kb: pausing here becuase ComUn.Attack() is not currently implemented.
+					//hero attacks
+					topHero.Attack(targetNow);
                 }
             } 
 			else
