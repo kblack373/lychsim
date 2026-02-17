@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lychgate;
+using System;
 using System.Runtime.InteropServices.Swift;
 using System.Security.Principal;
 
@@ -6,9 +7,20 @@ using System.Security.Principal;
 
 namespace Lychgate
 {
+    //faction enumeration
+    public enum Faction
+    {
+
+        Heroes,
+        Enemies
+
+    }
+
+
     //base combat unit class
     public class ComUn
     {
+
         public string Name;
         public int Idr;
         public int Hp;
@@ -20,6 +32,8 @@ namespace Lychgate
         public int Ini;
         public bool Alive;
         public bool Ready;
+        public Faction Alignment;
+
         public static void CreateUnit()
         {   //make sure this level is working.
             Console.WriteLine("CreateUnit is working.");
@@ -124,5 +138,22 @@ namespace Lychgate
 }
 
 //todo: extend class to Hero and Enemy subclasses
+
+public class Hero : ComUn
+{
+    
+    public Hero(string name, int idr, int hp, double hitChance, int dmg, int ac, double dodge, int ini) : base(name, idr, hp, hitChance, dmg, ac, dodge, ini)
+    {
+        Alignment = Faction.Heroes;
+    }
+}
+public class Mob : ComUn
+{
+
+    public Mob(string name, int idr, int hp, double hitChance, int dmg, int ac, double dodge, int ini) : base(name, idr, hp, hitChance, dmg, ac, dodge, ini)
+    {
+        Alignment = Faction.Enemies;
+    }
+}
 
 
