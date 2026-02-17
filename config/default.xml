@@ -1,1 +1,67 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<battle>
+	<army alignment="heroes">	
+		<unit>
+			<name>Link</name>
+			<id>10</id>
+			<hp>25</hp>
+			<accuracy>50</accuracy>
+			<damage>6</damage>
+			<armor>0</armor>
+			<dodge>60</dodge>
+			<ini>30</ini>
+		</unit>
+		<unit>
+			<name>Master Chief</name>
+			<id>11</id>
+			<hp>50</hp>
+			<accuracy>75</accuracy>
+			<damage>2</damage>
+			<armor>2</armor>
+			<dodge>30</dodge>
+			<ini>10</ini>
+		</unit>
+		<unit>
+			<name>Nathan Drake</name>
+			<id>12</id>
+			<hp>30</hp>
+			<accuracy>15</accuracy>
+			<damage>10</damage>
+			<armor>0</armor>
+			<dodge>70</dodge>
+			<ini>19</ini>
+		</unit>
+	</army>
+	<army alignment="enemies">
+		<unit>
+			<name>Goblin</name>
+			<id>20</id>
+			<hp>5</hp>
+			<accuracy>50</accuracy>
+			<damage>6</damage>
+			<armor>0</armor>
+			<dodge>60</dodge>
+			<ini>12</ini>
+		</unit>
+		<unit>
+			<name>Troll</name>
+			<id>21</id>
+			<hp>20</hp>
+			<accuracy>50</accuracy>
+			<damage>3</damage>
+			<armor>1</armor>
+			<dodge>10</dodge>
+			<ini>1</ini>
+		</unit>
+		<unit>
+			<name>Golbin Archer</name>
+			<id>30</id>
+			<hp>5</hp>
+			<accuracy>70</accuracy>
+			<damage>1</damage>
+			<armor>0</armor>
+			<dodge>70</dodge>
+			<ini>19</ini>
+		</unit>
+	</army>
+</battle>
