@@ -90,7 +90,7 @@ public class Army
         return rptStrBus;
 	}
 
-	public ComUn Top(int index)
+	private ComUn Top(int index)
 	{
 		//recursive function to find the top ready unit
 		ComUn rtnUnit;
@@ -164,6 +164,12 @@ public class Army
 
 
     }
+
+	public ComUn GetTopTargetOne()
+	{
+
+		return GetTopTarget(0);
+	}
 
 	public void ReadyUpAll()
 	{
