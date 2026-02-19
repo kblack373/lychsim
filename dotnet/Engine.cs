@@ -2,21 +2,41 @@
 using System.Xml;
 using Newtonsoft.Json;
 using System.Formats.Asn1;
+using System.Runtime.InteropServices;
 //todo: import xml reader, army class, comUn class, battle class
 public class LychEngine
 {
 	private string FilePath;
 	public LychEngine()
     { }
-	
+
 
     public Army[] ParseConfig(string inStrFilePath)
     {
         this.FilePath = inStrFilePath;
         Army[] armies = [];
+        List<ComUn> listHeroes = new();
+        List<ComUn> listMobs = new();
 
         List<ComUn> configUnits = ParseJsonConfig();
 
+        //now sort units to get armies
+        foreach (ComUn unit in configUnits)
+        {
+            if (unit.Alignment == Faction.Heroes)
+            {
+                listHeroes.Add(unit);
+
+            } else if (unit.Alignment == Faction.Enemies)
+            {
+                listMobs.Add(unit);
+            }
+        }
+
+        Army heroArmy = new Army(listHeroes);
+        Army mobArmy = new Army(listMobs);
+
+        armies = [heroArmy, mobArmy];
 
         return armies;
     }
