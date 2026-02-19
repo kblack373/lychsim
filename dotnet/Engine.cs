@@ -1,6 +1,7 @@
 ﻿using Lychgate;
 using System.Xml;
 using Newtonsoft.Json;
+using System.Formats.Asn1;
 //todo: import xml reader, army class, comUn class, battle class
 public class LychEngine
 {
@@ -14,7 +15,8 @@ public class LychEngine
         this.FilePath = inStrFilePath;
         Army[] armies = [];
 
-        List<ComUn> configUnitList = ParseJsonConfig();
+        List<ComUn> configUnits = ParseJsonConfig();
+
 
         return armies;
     }
@@ -31,15 +33,24 @@ public class LychEngine
             string json = "";
             
             //placeholder list to receive data
-            List<ComUn> units = new List<ComUn>();
+            List<ComUn> unitsFlat = new List<ComUn>();
 
             json = File.ReadAllText(FilePath);
-            units = JsonConvert.DeserializeObject<List<ComUn>>(json);
+            unitsFlat = JsonConvert.DeserializeObject<List<ComUn>>(json);
 
-            return units;
+            if (unitsFlat.Count>0)
+            {
+                return unitsFlat;
+
+            }
+            else
+            {
+                throw new Exception("Config file returned blank units. This means the file is empty or corrupt or some other horrible 3rd thing. Check the file: " + FilePath + "\n >> This is what I read, OK? \n " + json);
+                }
+           } 
 
 
-        } else
+       else
         {
             throw new Exception("Battle config file not found at path: " + FilePath);
         }
