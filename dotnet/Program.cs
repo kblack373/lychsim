@@ -13,6 +13,7 @@ namespace Lychgate
             
             string filePath = @"C:\Users\kenda\OneDrive\Documents\development\lychgate\simulation\config\default.json";
             LychEngine eng = new(filePath);
+            eng.RunSim();
         }
         //Console.ReadLine(); 
     }

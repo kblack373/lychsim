@@ -65,14 +65,14 @@ public class LychEngine
             json = File.ReadAllText(FilePath);
             unitsFlat = JsonConvert.DeserializeObject<List<ComUn>>(json);
 
-            if (unitsFlat.Count>0)
+            if (unitsFlat is not null && unitsFlat.Count>0)
             {
                 return unitsFlat;
 
             }
             else
             {
-                throw new Exception("Config file returned blank units. This means the file is empty or corrupt or some other horrible 3rd thing. Check the file: " + FilePath + "\n >> This is what I read, OK? \n " + json);
+                throw new Exception("Config file returned blank or null units. This means the file is empty or corrupt or some other horrible 3rd thing. Check the file: " + FilePath + "\n >> This is what I read, OK? \n " + json);
                 }
            } 
 
@@ -82,6 +82,14 @@ public class LychEngine
             throw new Exception("Battle config file not found at path: " + FilePath);
         }
 
+    }
+
+    public void RunSim()
+    {
+        battle.GetHeroArmy().Report();
+        battle.GetMobArmy().Report();
+
+        battle.FightRounds(50);
     }
 
 }

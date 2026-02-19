@@ -11,10 +11,28 @@ public class Battle
 		//todo: spin up logger
 	}
 
+	public Army GetHeroArmy()
+	{
+		return heroArmy;
+	}
+
+	public Army GetMobArmy()
+	{
+		return mobArmy;
+	}
+
 	private void printAction(String message)
 	{
         Console.WriteLine(message);
     }
+
+	public void FightRounds(int roundCount)
+	{
+		for (int curRound=0; curRound < roundCount; curRound++) {
+			printAction(">> Round " + (curRound + 1));
+			FightOneRound(curRound);
+		}
+	}
 
 	public int FightOneRound(int curRndCount)
 	{
