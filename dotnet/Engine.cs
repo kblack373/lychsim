@@ -10,6 +10,7 @@ using System.Security.Principal;
 using Lychgate;
 using System.ComponentModel.Design;
 using System.Diagnostics.Tracing;
+using System.Xml;
 
 //todo: import xml reader, army class, comUn class, battle class
 public class LychEngine
@@ -23,52 +24,49 @@ public class LychEngine
 
 	public void OpenXml()
 	{
+        string readName;
+        int readIdr;
+        int readHp;
+        int readMaxHp;
+        double readAccuracy;
+        int readDmg;
+        int readAc;
+        double readDodge;
+        int readIni;
+        bool readAlive;
+        bool readReady;
+        Faction readAlignment;
+
         //kb 2 16 2026
         //thinking we throw this method in the fucking trash and start again.
         //way too complicated.
         //use this instead: https://stackoverflow.com/a/55840
 
+        //init lists
+        //armies are represented as basic lists during config parse then tranformed into Army object
+        List<ComUn> buildHeroArmyList = new();
+        List<ComUn> buildMobArmyList = new();
 
-        // reading in the XML using LINQ 
-        // https://stackoverflow.com/a/670569
-        XDocument xdoc = XDocument.Load(XmlFilePath);
-		//step 1: open file as text
+        XmlDocument xmlDoc = new XmlDocument();
+		xmlDoc.LoadXml(XmlFilePath);
 
-		var lv1s = from lv1 in xdoc.Descendants("army")
-				   select new
-				   {
+		//get all elements 
+		XmlNodeList armiesList = xmlDoc.GetElementsByTagName("unit");
+        //armiesList is a 2D list
 
-					   align = lv1.Attribute("alignment").Value,
-					   units = lv1.Descendants("unit")
-						
-				   };
-
-		foreach (var lv1 in lv1s)
+        //iterate through our armiesList
+		foreach (XmlNode node in armiesList)
 		{
-			//iterate through
-			string sideStr = lv1.align.ToString();
-			Faction sideFac;
-			if (sideStr == "heores")
-			{
-				sideFac = Faction.Heroes;
-			} else if (sideStr == "enemies")
-			{
-				sideFac = Faction.Enemies;
-			} else
-			{
-				throw new Exception("undefined army <alignment> element.");
-				return;
-			}
-			foreach (var lv2 in lv1.units)
-			{
-				//to do: populate units
+			// node is the xml representation of the unit
+			// ref unit for army insert
+			ComUn insUnit;
 
-
-			}
-
+            //parse name
+       
+            //todo: implement... something's missing. I think we need this format:
+            // <key="name" value="Hero1" />
+            //instead of this format:
+            // <name>Hero1</name>
 		}
-		
-
-
-	}
+    }
 }
