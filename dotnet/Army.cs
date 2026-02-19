@@ -23,9 +23,11 @@ public class Army
         //sort using initative of ComUn as key
         //comparison delegate see: https://youtu.be/uRaO8HLoHAs?t=205
         units.Sort((unit1, unit2) => unit1.Ini.CompareTo(unit2.Ini));
-		
-		//swap instance list with sorted list
-		this.unitList = units;
+
+		//reverse list since we want to sort descending instead of asc
+		units.Reverse();
+        //swap instance list with sorted list
+        this.unitList = units;
 		return true;
 	}
 
