@@ -1,7 +1,4 @@
 ﻿
-using System;
-//using ComUn;
-
 namespace Lychgate
 {
     class Program
@@ -13,8 +10,9 @@ namespace Lychgate
             //Console.ReadLine(); // keeps console open
 
             //LychEngine eng = new(@"C:\Users\kenda\OneDrive\Documents\development\lychgate\simulation\config\default.xml");
-            LychEngine eng = new();
-            eng.ParseConfig(@"C:\Users\kenda\OneDrive\Documents\development\lychgate\simulation\config\default.json");
+            
+            string filePath = @"C:\Users\kenda\OneDrive\Documents\development\lychgate\simulation\config\default.json";
+            LychEngine eng = new(filePath);
         }
         //Console.ReadLine(); 
     }

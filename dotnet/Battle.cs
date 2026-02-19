@@ -1,5 +1,4 @@
 ﻿using Lychgate;
-using System;
 public class Battle
 {
 	private Army heroArmy;

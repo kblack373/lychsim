@@ -1,19 +1,26 @@
 ﻿using Lychgate;
-using System.Xml;
 using Newtonsoft.Json;
-using System.Formats.Asn1;
-using System.Runtime.InteropServices;
+
 //todo: import xml reader, army class, comUn class, battle class
 public class LychEngine
 {
 	private string FilePath;
-	public LychEngine()
-    { }
+    private Battle battle;
 
+    public LychEngine(string inFileName)
+    {
+        FilePath = inFileName;
+        InitializeSim();
+    }
 
+    private void InitializeSim()
+    {
+        Army[] armies = ParseConfig(FilePath);
+        this.battle = new Battle(armies[0], armies[1]);
+    }
     public Army[] ParseConfig(string inStrFilePath)
     {
-        this.FilePath = inStrFilePath;
+        FilePath = inStrFilePath;
         Army[] armies = [];
         List<ComUn> listHeroes = new();
         List<ComUn> listMobs = new();
@@ -77,54 +84,4 @@ public class LychEngine
 
     }
 
-	public void OpenXml()
-	{
-
-        //obsolete, preserved in case I want to copy these local declarations 
-
-        string readName;
-        int readIdr;
-        int readHp;
-        int readMaxHp;
-        double readAccuracy;
-        int readDmg;
-        int readAc;
-        double readDodge;
-        int readIni;
-        bool readAlive;
-        bool readReady;
-        Faction readAlignment;
-
-        //kb 2 16 2026
-        //thinking we throw this method in the fucking trash and start again.
-        //way too complicated.
-        //use this instead: https://stackoverflow.com/a/55840
-
-        //init lists
-        //armies are represented as basic lists during config parse then tranformed into Army object
-        List<ComUn> buildHeroArmyList = new();
-        List<ComUn> buildMobArmyList = new();
-
-        XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml(FilePath);
-
-		//get all elements 
-		XmlNodeList armiesList = xmlDoc.GetElementsByTagName("unit");
-        //armiesList is a 2D list
-
-        //iterate through our armiesList
-		foreach (XmlNode node in armiesList)
-		{
-			// node is the xml representation of the unit
-			// ref unit for army insert
-			ComUn insUnit;
-
-            //parse name
-       
-            //todo: implement... something's missing. I think we need this format:
-            // <key="name" value="Hero1" />
-            //instead of this format:
-            // <name>Hero1</name>
-		}
-    }
 }

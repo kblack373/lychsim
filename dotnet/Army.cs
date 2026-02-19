@@ -1,5 +1,5 @@
 ﻿using Lychgate;
-using System;
+
 //todo: import comUn class
 
 public class Army
