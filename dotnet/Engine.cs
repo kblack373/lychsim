@@ -1,29 +1,56 @@
-﻿using System;
-using System.Linq;
-using System.Xml.Linq;
-using System.IO;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.Java;
-using System.Drawing;
-using System.Security.Principal;
-using Lychgate;
-using System.ComponentModel.Design;
-using System.Diagnostics.Tracing;
+﻿using Lychgate;
 using System.Xml;
-
+using Newtonsoft.Json;
 //todo: import xml reader, army class, comUn class, battle class
 public class LychEngine
 {
-	private string XmlFilePath;
-	public LychEngine(string inXmlFilePath)
-	{
-		XmlFilePath = inXmlFilePath;
-		return;
-	}
+	private string FilePath;
+	public LychEngine()
+    { }
+	
+
+    public Army[] ParseConfig(string inStrFilePath)
+    {
+        this.FilePath = inStrFilePath;
+        Army[] armies = [];
+
+        List<ComUn> configUnitList = ParseJsonConfig();
+
+        return armies;
+    }
+
+    public List<ComUn> ParseJsonConfig()
+    {
+        // fuck this Markup Language bullshit, we doin javascript babyyyy
+        // json serialization: https://www.newtonsoft.com/json/help/html/SerializingCollections.htm
+
+
+        if (File.Exists(FilePath))
+        {
+            //file is good to go
+            string json = "";
+            
+            //placeholder list to receive data
+            List<ComUn> units = new List<ComUn>();
+
+            json = File.ReadAllText(FilePath);
+            units = JsonConvert.DeserializeObject<List<ComUn>>(json);
+
+            return units;
+
+
+        } else
+        {
+            throw new Exception("Battle config file not found at path: " + FilePath);
+        }
+
+    }
 
 	public void OpenXml()
 	{
+
+        //obsolete, preserved in case I want to copy these local declarations 
+
         string readName;
         int readIdr;
         int readHp;
@@ -48,7 +75,7 @@ public class LychEngine
         List<ComUn> buildMobArmyList = new();
 
         XmlDocument xmlDoc = new XmlDocument();
-		xmlDoc.LoadXml(XmlFilePath);
+		xmlDoc.LoadXml(FilePath);
 
 		//get all elements 
 		XmlNodeList armiesList = xmlDoc.GetElementsByTagName("unit");

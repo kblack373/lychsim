@@ -12,8 +12,9 @@ namespace Lychgate
             //ComUn.CreateUnit();
             //Console.ReadLine(); // keeps console open
 
-            LychEngine eng = new(@"C:\Users\kenda\OneDrive\Documents\development\lychgate\simulation\config\default.xml");
-            eng.OpenXml();
+            //LychEngine eng = new(@"C:\Users\kenda\OneDrive\Documents\development\lychgate\simulation\config\default.xml");
+            LychEngine eng = new();
+            eng.ParseConfig(@"C:\Users\kenda\OneDrive\Documents\development\lychgate\simulation\config\default.json");
         }
         //Console.ReadLine(); 
     }
