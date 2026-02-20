@@ -25,18 +25,6 @@
 },
 
 {
-	"Name": "Nathan Drake",
-	"Idr":  30,
-	"Hp": 25,
-	"Accuracy": 90,
-	"Dmg": 3,
-	"Ac":0,
-	"Dodge":80,
-	"Ini":1,
-	"Align":"Hero"
-},
-
-{
 	"Name": "Goblin A",
 	"Idr":  50,
 	"Hp": 10,

@@ -159,6 +159,17 @@ public class Battle
             turnCount++;
         }
 
+		//ready up for next round
+		ReadyArmies();
+
 		return turnCount;
     }
+
+	public void ReadyArmies()
+	{
+		heroArmy.ReadyUpAll();
+		mobArmy.ReadyUpAll();
+
+	}
+
 }
