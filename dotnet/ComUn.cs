@@ -81,7 +81,7 @@ namespace Lychgate
         {   //is the ceeature alive? TODO: Does this need to pass the creature ID?
             if (Hp <= 0)
             {
-                Console.WriteLine(Name + " has fallen to their wounds.");
+                
                 Alive = false;
                 Ready = false;
                 return true;
@@ -144,8 +144,17 @@ namespace Lychgate
             bool hit = TryHit(this.Accuracy, inTarget.Dodge);
             if (hit)
             {
-                int netDmg = this.Dmg = inTarget.Ac;
-                return netDmg;
+                int netDmg = this.Dmg - inTarget.Ac;
+                if (netDmg < 0)
+                {
+                    // don't return less than 0 if it doesnt get thru armor
+                    return 0;
+                }
+                else
+                {
+                    // successful hit
+                    return netDmg;
+                }
             }
             else
             {

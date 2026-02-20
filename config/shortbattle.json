@@ -1,0 +1,38 @@
+[
+
+{
+	"Name": "Link",
+	"Idr":  10,
+	"Hp": 25,
+	"Accuracy": 50,
+	"Dmg": 5,
+	"Ac":0,
+	"Dodge":60,
+	"Ini":30,
+	"Align":"Hero"
+},
+
+{
+	"Name": "Goblin A",
+	"Idr":  50,
+	"Hp": 10,
+	"Accuracy": 20,
+	"Dmg": 1,
+	"Ac":0,
+	"Dodge":30,
+	"Ini":5,
+	"Align":"Mob"
+},
+
+{
+	"Name": "Goblin B",
+	"Idr":  51,
+	"Hp": 10,
+	"Accuracy": 20,
+	"Dmg": 1,
+	"Ac":0,
+	"Dodge":30,
+	"Ini":7,
+	"Align":"Mob"
+}
+]

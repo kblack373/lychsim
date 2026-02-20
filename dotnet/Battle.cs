@@ -1,4 +1,5 @@
 ﻿using Lychgate;
+using System.Xml.Linq;
 public class Battle
 {
 	private Army heroArmy;
@@ -26,13 +27,80 @@ public class Battle
         Console.WriteLine(message);
     }
 
+	private void EndBattle(Faction winner)
+	{
+
+	}
+
 	public void FightRounds(int roundCount)
 	{
 		for (int curRound=0; curRound < roundCount; curRound++) {
 			printAction(">> Round " + (curRound + 1));
-			FightOneRound(curRound);
+			int roundResult = FightOneRound(curRound);
+            // if there were no turns taken last round and we're done with the battle. let's find out who won.
+            ComUn topAliveHero = heroArmy.GetTopTargetOne();
+			ComUn topAliveMob = mobArmy.GetTopTargetOne();
+			if (topAliveHero.Idr == 0 & topAliveMob.Idr == 0)
+			{
+				//both sides dead
+				printAction("All combatants have fallen... The battlefield is a desolate stalemate.");
+				return;
+
+			}
+			else if (topAliveHero.Idr == 0)
+			{
+                // all heroes dead; mobs win.
+                printAction("All the heroes have succumbed to their wounds. Heroes have been slaughtered and defeated...");
+				return;
+            }
+			else if (topAliveMob.Idr == 0) {
+
+                // all mobs dead; heores win.
+                printAction("No enemies remain. The Heroes have won!");
+                return;
+            }
+
 		}
 	}
+
+	private int UnitAttackTarget(ComUn unit, ComUn target)
+	{
+        //logic to handle different attack results
+		//todo: add logging, any other bonuses for defense/dodge
+
+        int result = unit.Attack(target);
+        unit.Exhaust();
+        if (result == 0)
+		{
+			//attack hits but does not penetrate armor
+
+			return 0;
+		}
+		else if (result < 0)
+		{
+			// attack is a miss
+
+			return 0;
+
+
+		} else
+		{
+			// then the result is applied as damage
+
+			target.SubHP(result);
+
+			//check target death
+			if (target.CheckDeath())
+			{
+                string msg = target.Name + " has fallen to their wounds.";
+				printAction(msg);
+            }
+
+			//exhaust attacker
+
+			return result;
+		}
+    }
 
 	public int FightOneRound(int curRndCount)
 	{
@@ -53,7 +121,7 @@ public class Battle
 		int netDmg = 0;
 
 		//keep fighting until we run out of valid heros or mobs
-		while (topHero.Idr != 0 && topMob.Idr != 0)
+		while (topHero.Idr != 0 || topMob.Idr != 0)
 		{
 			//compare the top two initative (Ini) of each of the two armies
 			if (topHero.Ini >= topMob.Ini)
@@ -70,9 +138,7 @@ public class Battle
                     msgBus = topHero.Name + " attacks " + targetNow.Name;
                     printAction(msgBus);
 					//hero attacks
-					netDmg = topHero.Attack(targetNow);
-					targetNow.SubHP(netDmg);
-					topHero.Exhaust();
+					netDmg = UnitAttackTarget(topHero, topMob);
 
                 } else
 				{
@@ -100,10 +166,7 @@ public class Battle
 					msgBus = topMob.Name + " attacks " + targetNow.Name;
 					printAction(msgBus);
 					//mob attacks
-					netDmg = topMob.Attack(targetNow);
-					targetNow.SubHP(netDmg);
-					topMob.Exhaust();
-
+					netDmg = UnitAttackTarget(topMob, topHero);
 				}
 				else
 				{
@@ -124,6 +187,17 @@ public class Battle
             turnCount++;
         }
 
+		//ready up for next round
+		ReadyArmies();
+
 		return turnCount;
     }
+
+	public void ReadyArmies()
+	{
+		heroArmy.ReadyUpAll();
+		mobArmy.ReadyUpAll();
+
+	}
+
 }
