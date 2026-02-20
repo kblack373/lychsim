@@ -1,12 +1,63 @@
 ﻿using Lychgate;
 using Newtonsoft.Json;
-
-//todo: import xml reader, army class, comUn class, battle class
+using Newtonsoft.Json.Schema;
 public class LychEngine
 {
-	private string FilePath;
-    private Battle battle;
-
+    #region instanceVars
+    private string FilePath;
+    private Battle Battle;
+    #region schema
+    private const string JsonSchema = @"{
+  '$schema': 'http://json-schema.org/draft-07/schema#',
+  'title': 'Generated schema for Root',
+  'type': 'array',
+  'items': {
+    'type': 'object',
+    'properties': {
+      'Name': {
+        'type': 'string'
+      },
+      'Idr': {
+        'type': 'number'
+      },
+      'Hp': {
+        'type': 'number'
+      },
+      'Accuracy': {
+        'type': 'number'
+      },
+      'Dmg': {
+        'type': 'number'
+      },
+      'Ac': {
+        'type': 'number'
+      },
+      'Dodge': {
+        'type': 'number'
+      },
+      'Ini': {
+        'type': 'number'
+      },
+      'Align': {
+        'type': 'string'
+      }
+    },
+    'required': [
+      'Name',
+      'Idr',
+      'Hp',
+      'Accuracy',
+      'Dmg',
+      'Ac',
+      'Dodge',
+      'Ini',
+      'Align'
+    ]
+  }
+}";
+    #endregion
+    #endregion
+    #region constructors
     public LychEngine(string inFileName)
     {
         FilePath = inFileName;
@@ -16,8 +67,10 @@ public class LychEngine
     private void InitializeSim()
     {
         Army[] armies = ParseConfig(FilePath);
-        this.battle = new Battle(armies[0], armies[1]);
+        this.Battle = new Battle(armies[0], armies[1]);
     }
+    #endregion
+    #region classMethods
     public Army[] ParseConfig(string inStrFilePath)
     {
         FilePath = inStrFilePath;
@@ -63,7 +116,27 @@ public class LychEngine
             List<ComUn> unitsFlat = new List<ComUn>();
 
             json = File.ReadAllText(FilePath);
-            unitsFlat = JsonConvert.DeserializeObject<List<ComUn>>(json);
+           
+            //validate JSON here
+            //https://www.newtonsoft.com/jsonschema/help/html/ValidatingJson.htm
+            //first, read in the text as a basic JSON reader object to handle the text
+            JsonTextReader basicReader = new JsonTextReader(new StringReader(json));
+
+            //second, use that reader object to init a JSchemaValidatingReader object
+            //this will do the actual validation logic
+            JSchemaValidatingReader valReader = new JSchemaValidatingReader(basicReader);
+            valReader.Schema = JSchema.Parse(JsonSchema);
+            try
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                //pass in validated reader
+                unitsFlat = serializer.Deserialize<List<ComUn>>(valReader);
+
+            }
+            catch
+            {
+                throw new Exception("Error desrializing text file to JSON. File: " + FilePath + "\n" + json);
+            }
 
             if (unitsFlat is not null && unitsFlat.Count>0)
             {
@@ -86,10 +159,11 @@ public class LychEngine
 
     public void RunSim()
     {
-        battle.GetHeroArmy().Report();
-        battle.GetMobArmy().Report();
+        Battle.GetHeroArmy().Report();
+        Battle.GetMobArmy().Report();
 
-        battle.FightRounds(50);
+        Battle.FightRounds(50);
     }
 
+    #endregion
 }
