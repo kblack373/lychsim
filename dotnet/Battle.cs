@@ -69,6 +69,32 @@ public class Battle
 		}
 	}
 
+	private int UnitAttackTarget(ComUn unit, ComUn target)
+	{
+        //logic to handle different attack results
+		//todo: add logging, any other bonuses for defense/dodge
+
+        int result = unit.Attack(target);
+		if (result == 0)
+		{
+			//attack hits but does not penetrate armor
+
+			return 0;
+		}
+		else if (result < 0)
+		{
+			// attack is a miss
+
+			return 0;
+
+
+		} else
+		{
+			// then the result is applied as damage
+			return result;
+		}
+    }
+
 	public int FightOneRound(int curRndCount)
 	{
 		// called to fight one round of combat, iterates through all eligible units to attack an eligible target
@@ -88,7 +114,7 @@ public class Battle
 		int netDmg = 0;
 
 		//keep fighting until we run out of valid heros or mobs
-		while (topHero.Idr != 0 && topMob.Idr != 0)
+		while (topHero.Idr != 0 || topMob.Idr != 0)
 		{
 			//compare the top two initative (Ini) of each of the two armies
 			if (topHero.Ini >= topMob.Ini)
@@ -105,7 +131,7 @@ public class Battle
                     msgBus = topHero.Name + " attacks " + targetNow.Name;
                     printAction(msgBus);
 					//hero attacks
-					netDmg = topHero.Attack(targetNow);
+					netDmg = UnitAttackTarget(topHero, topMob);
 					targetNow.SubHP(netDmg);
 					topHero.Exhaust();
 
@@ -135,7 +161,7 @@ public class Battle
 					msgBus = topMob.Name + " attacks " + targetNow.Name;
 					printAction(msgBus);
 					//mob attacks
-					netDmg = topMob.Attack(targetNow);
+					netDmg = UnitAttackTarget(topMob, topHero);
 					targetNow.SubHP(netDmg);
 					topMob.Exhaust();
 
