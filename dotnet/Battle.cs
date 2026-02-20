@@ -1,4 +1,5 @@
 ﻿using Lychgate;
+using System.Xml.Linq;
 public class Battle
 {
 	private Army heroArmy;
@@ -75,7 +76,8 @@ public class Battle
 		//todo: add logging, any other bonuses for defense/dodge
 
         int result = unit.Attack(target);
-		if (result == 0)
+        unit.Exhaust();
+        if (result == 0)
 		{
 			//attack hits but does not penetrate armor
 
@@ -91,6 +93,18 @@ public class Battle
 		} else
 		{
 			// then the result is applied as damage
+
+			target.SubHP(result);
+
+			//check target death
+			if (target.CheckDeath())
+			{
+                string msg = target.Name + " has fallen to their wounds.";
+				printAction(msg);
+            }
+
+			//exhaust attacker
+
 			return result;
 		}
     }
@@ -132,8 +146,6 @@ public class Battle
                     printAction(msgBus);
 					//hero attacks
 					netDmg = UnitAttackTarget(topHero, topMob);
-					targetNow.SubHP(netDmg);
-					topHero.Exhaust();
 
                 } else
 				{
@@ -162,9 +174,6 @@ public class Battle
 					printAction(msgBus);
 					//mob attacks
 					netDmg = UnitAttackTarget(topMob, topHero);
-					targetNow.SubHP(netDmg);
-					topMob.Exhaust();
-
 				}
 				else
 				{

@@ -81,7 +81,7 @@ namespace Lychgate
         {   //is the ceeature alive? TODO: Does this need to pass the creature ID?
             if (Hp <= 0)
             {
-                Console.WriteLine(Name + " has fallen to their wounds.");
+                
                 Alive = false;
                 Ready = false;
                 return true;
@@ -152,6 +152,7 @@ namespace Lychgate
                 }
                 else
                 {
+                    // successful hit
                     return netDmg;
                 }
             }
