@@ -37,36 +37,29 @@ public class Battle
 		for (int curRound=0; curRound < roundCount; curRound++) {
 			printAction(">> Round " + (curRound + 1));
 			int roundResult = FightOneRound(curRound);
-			if (roundResult == 0) {
-                // if there were no turns taken last round and we're done with the battle. let's find out who won.
-                ComUn topAliveHero = heroArmy.GetTopTargetOne();
-				ComUn topAliveMob = mobArmy.GetTopTargetOne();
-				if (topAliveHero.Idr == 0 & topAliveMob.Idr == 0)
-				{
-					//both sides dead
-					printAction("All combatants have fallen... The battlefield is a desolate stalemate.");
-					return;
+            // if there were no turns taken last round and we're done with the battle. let's find out who won.
+            ComUn topAliveHero = heroArmy.GetTopTargetOne();
+			ComUn topAliveMob = mobArmy.GetTopTargetOne();
+			if (topAliveHero.Idr == 0 & topAliveMob.Idr == 0)
+			{
+				//both sides dead
+				printAction("All combatants have fallen... The battlefield is a desolate stalemate.");
+				return;
 
-				}
-				else if (topAliveHero.Idr == 0)
-				{
-                    // all heroes dead; mobs win.
-                    printAction("All the heroes have succumbed to their wounds. Heroes have been slaughtered and defeated...");
-					return;
-                }
-				else if (topAliveMob.Idr == 0) {
-
-                    // all mobs dead; heores win.
-                    printAction("No enemies remain. The Heroes have won!");
-                    return;
-                }
-                else
-                {
-					throw new Exception("Invalid Game State.");
-                }
-
-
+			}
+			else if (topAliveHero.Idr == 0)
+			{
+                // all heroes dead; mobs win.
+                printAction("All the heroes have succumbed to their wounds. Heroes have been slaughtered and defeated...");
+				return;
             }
+			else if (topAliveMob.Idr == 0) {
+
+                // all mobs dead; heores win.
+                printAction("No enemies remain. The Heroes have won!");
+                return;
+            }
+
 		}
 	}
 
