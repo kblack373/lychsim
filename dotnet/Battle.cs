@@ -63,6 +63,45 @@ public class Battle
 		}
 	}
 
+	public int FightUntilVictor()
+	{
+		bool result = true;
+		int curRound = 0;
+        while (result)
+        {
+            printAction(">> Round " + (curRound));
+            curRound++;
+            int roundResult = FightOneRound(curRound);
+			
+            // if there were no turns taken last round and we're done with the battle. let's find out who won.
+            ComUn topAliveHero = heroArmy.GetTopTargetOne();
+            ComUn topAliveMob = mobArmy.GetTopTargetOne();
+            if (topAliveHero.Idr == 0 & topAliveMob.Idr == 0)
+            {
+                //both sides dead
+                printAction("All combatants have fallen... The battlefield is a desolate stalemate.");
+                result = false;
+
+            }
+            else if (topAliveHero.Idr == 0)
+            {
+                // all heroes dead; mobs win.
+                printAction("All the heroes have succumbed to their wounds. Heroes have been slaughtered and defeated...");
+                result = false;
+
+            }
+            else if (topAliveMob.Idr == 0)
+            {
+
+                // all mobs dead; heores win.
+                printAction("No enemies remain. The Heroes have won!");
+                result = false;
+            }
+
+        }
+		return curRound;
+    }
+
 	private int UnitAttackTarget(ComUn unit, ComUn target)
 	{
         //logic to handle different attack results

@@ -162,7 +162,9 @@ public class LychEngine
         Battle.GetHeroArmy().Report();
         Battle.GetMobArmy().Report();
 
-        Battle.FightRounds(50);
+        int rounds = 0;
+        rounds = Battle.FightUntilVictor();
+        Console.WriteLine(">>> Battle Concluded in " + rounds + " rounds of combat.");
     }
 
     #endregion

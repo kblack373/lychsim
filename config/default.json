@@ -13,14 +13,14 @@
 },
 
 {
-	"Name": "Hulk Hogan",
+	"Name": "Randy Savage",
 	"Idr":  20,
-	"Hp": 50,
+	"Hp": 55,
 	"Accuracy": 20,
-	"Dmg": 7,
-	"Ac":1,
-	"Dodge":30,
-	"Ini":60,
+	"Dmg": 8,
+	"Ac":2,
+	"Dodge":32,
+	"Ini":61,
 	"Align":"Hero"
 },
 
