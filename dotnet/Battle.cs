@@ -1,4 +1,5 @@
 ﻿using Lychgate;
+using System.ComponentModel.Design;
 using System.Xml.Linq;
 public class Battle
 {
@@ -177,7 +178,8 @@ public class Battle
                     msgBus = topHero.Name + " attacks " + targetNow.Name;
                     printAction(msgBus);
 					//hero attacks
-					netDmg = UnitAttackTarget(topHero, topMob);
+					netDmg = UnitAttackTarget(topHero, targetNow);
+					AttackResponse(netDmg, topHero, targetNow);
 
                 } else
 				{
@@ -205,8 +207,9 @@ public class Battle
 					msgBus = topMob.Name + " attacks " + targetNow.Name;
 					printAction(msgBus);
 					//mob attacks
-					netDmg = UnitAttackTarget(topMob, topHero);
-				}
+					netDmg = UnitAttackTarget(topMob, targetNow);
+                    AttackResponse(netDmg, topMob, targetNow);
+                }
 				else
 				{
 					// there are no eligible targets
@@ -232,7 +235,36 @@ public class Battle
 		return turnCount;
     }
 
-	public void ReadyArmies()
+    private void AttackResponse(int netDmg, ComUn attacker, ComUn defender)
+    {
+		string message = "";
+        if (netDmg > 0)
+		{
+			//report successful hit
+			message = attacker.Name + " hit " + defender.Name + " for " + netDmg + " points of damage.";
+			
+
+		} else if ( netDmg == 0)
+		{
+            //report a block from armor
+            message = attacker.Name + " hit " + defender.Name + " but could not pierce their target's armor!";
+            
+        } else if ( netDmg < 0)
+		{
+            //report as a miss
+            //this is counted as a miss in ComUn.Attack()
+            message = attacker.Name + " missed!";
+
+        } else
+		{
+			message = "??action error.";
+		}
+
+        printAction(message);
+
+    }
+
+    public void ReadyArmies()
 	{
 		heroArmy.ReadyUpAll();
 		mobArmy.ReadyUpAll();
