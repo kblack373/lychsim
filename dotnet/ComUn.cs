@@ -14,7 +14,7 @@ namespace Lychgate
     //base combat unit class
     public class ComUn
     {
-
+        // instance variables
         public string Name;
         public int Idr;
         public int Hp;
