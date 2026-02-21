@@ -132,7 +132,7 @@ public class Battle
 			//check target death
 			if (target.CheckDeath())
 			{
-                string msg = target.Name + " has fallen to their wounds.";
+                string msg = target.Name + "takes mortal damage and falls to their wounds.";
 				printAction(msg);
             }
 
