@@ -118,12 +118,13 @@ namespace Lychgate
 
         //todo: implement Attack() method
 
-        private bool TryHit(double acc, double targetDodge)
+        private bool TryHit(double acc, double targetDodge, ref double rtnOutSwingRating)
         {
             Random d100 = new();
             double roll = d100.NextDouble();
 
             roll += acc;
+            rtnOutSwingRating = roll;
 
             if (roll > targetDodge)
             {
@@ -138,10 +139,10 @@ namespace Lychgate
 
         }
 
-        public int Attack(ComUn inTarget)
+        public int Attack(ComUn inTarget, ref double swingRating)
         {
             //roll D100
-            bool hit = TryHit(this.Accuracy, inTarget.Dodge);
+            bool hit = TryHit(this.Accuracy, inTarget.Dodge, ref swingRating);
             if (hit)
             {
                 int netDmg = this.Dmg - inTarget.Ac;

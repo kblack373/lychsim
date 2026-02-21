@@ -1,16 +1,28 @@
 ﻿using Lychgate;
 using System.ComponentModel.Design;
+using System.Reflection.Metadata;
+using System.Runtime.InteropServices.Swift;
 using System.Xml.Linq;
 public class Battle
 {
 	private Army heroArmy;
 	private Army mobArmy;
+	public  CombatLogger Log { get; set; }
+
+	//add local vars to track current round and turn
+	private int CurrentRound;
+	private int CurrentTurnOfRound;
+
+	//constant for data output
+	private const string DefaultFilePath = "default.csv";
+
 	public Battle(Army inHeroArmy, Army inMobArmy)
 	{
 		this.heroArmy = inHeroArmy;
 		this.mobArmy = inMobArmy;
 
 		//todo: spin up logger
+		Log = new CombatLogger();
 	}
 
 	public Army GetHeroArmy()
@@ -37,6 +49,7 @@ public class Battle
 	{
 		for (int curRound=0; curRound < roundCount; curRound++) {
 			printAction(">> Round " + (curRound + 1));
+			
 			int roundResult = FightOneRound(curRound);
             // if there were no turns taken last round and we're done with the battle. let's find out who won.
             ComUn topAliveHero = heroArmy.GetTopTargetOne();
@@ -62,9 +75,17 @@ public class Battle
             }
 
 		}
+		WriteLogs();
+		
 	}
 
-	public int FightUntilVictor()
+    private void WriteLogs()
+    {
+        string filePath = Environment.ExpandEnvironmentVariables(DefaultFilePath);
+        this.Log.WriteCsvLog(filePath);
+    }
+
+    public int FightUntilVictor()
 	{
 		bool result = true;
 		int curRound = 0;
@@ -100,35 +121,49 @@ public class Battle
             }
 
         }
-		return curRound;
+        WriteLogs();
+        return curRound;
     }
 
 	private int UnitAttackTarget(ComUn unit, ComUn target)
 	{
-        //logic to handle different attack results
-		//todo: add logging, any other bonuses for defense/dodge
+		//logic to handle different attack results
+		int signalOut;
+		//init Log with all the stuff we know
+		CombatLog newLog;
+		newLog = new CombatLog( this.CurrentRound, this.CurrentTurnOfRound, unit.Name, unit.Idr,  unit.Accuracy,  target.Name, target.Idr, target.Dodge,  target.Ac);
 
-        int result = unit.Attack(target);
+		//prep to get the swing result "swingrating" by reference
+		double swingRating = 0.0;
+        int result = unit.Attack(target, ref swingRating);
+		//swingRating is now populated with the result of the "to hit" roll.
+		newLog.HitRollResult = swingRating;
+
         unit.Exhaust();
         if (result == 0)
 		{
 			//attack hits but does not penetrate armor
-
-			return 0;
+			newLog.HitSuccess = true;
+            newLog.Damage = 0;
+            newLog.TargetRemainHp = target.Hp;
+            signalOut = 0;
 		}
 		else if (result < 0)
 		{
-			// attack is a miss
+            // attack is a miss
+            newLog.HitSuccess = false;
+			newLog.Damage = 0;
+            newLog.TargetRemainHp = target.Hp;
+            signalOut = 0;
 
-			return 0;
 
-
-		} else
+        } else
 		{
-			// then the result is applied as damage
-
-			target.SubHP(result);
-
+            // then the result is applied as damage
+            newLog.HitSuccess = true;
+            target.SubHP(result);
+			newLog.Damage = result;
+			newLog.TargetRemainHp = target.Hp;
 			//check target death
 			if (target.CheckDeath())
 			{
@@ -136,10 +171,13 @@ public class Battle
 				printAction(msg);
             }
 
-			//exhaust attacker
+            //exhaust attacker
 
-			return result;
+            signalOut = result;
 		}
+
+		this.Log.InsertLog(newLog);
+		return signalOut;
     }
 
 	public int FightOneRound(int curRndCount)
@@ -151,9 +189,9 @@ public class Battle
 
 		msgBus = "Round " + curRndCount + " begins...";
 		printAction(msgBus);
-
-		//init our top hero and enemy (mob)
-		ComUn topHero = heroArmy.TopOne();
+        CurrentRound = curRndCount;
+        //init our top hero and enemy (mob)
+        ComUn topHero = heroArmy.TopOne();
         ComUn topMob =  mobArmy.TopOne();
 		ComUn targetNow; //empty for now, placeholder
 
@@ -163,6 +201,7 @@ public class Battle
 		//keep fighting until we run out of valid heros or mobs
 		while (topHero.Idr != 0 || topMob.Idr != 0)
 		{
+			CurrentTurnOfRound = turnCount;
 			//compare the top two initative (Ini) of each of the two armies
 			if (topHero.Ini >= topMob.Ini)
 			{
@@ -271,12 +310,17 @@ public class Battle
 
 	}
 
-	private void InsertLog(int round, int turn, ComUn atkUnit, ComUn defTarget, int dmg, double rollResult, bool hitSuccess)
+	private void InsertLog(ComUn atkUnit, ComUn defTarget, int dmg, double rollResult, bool hitSuccess)
 	{
-		//executed AFTER ComUn.Attack() processes
-		//that way remaining HP = defTarget.Hp
-		CombatLog newLog = new(round,
-								turn,
+
+        //obsolete.
+        //instead, logs are inserted by calling the limited constructer new ComLog() in the UnitAttackTarget() method
+		//this is done exclusively at that method level because that method has the longest reach of visibility into hit detection and resulting damage
+
+        //executed AFTER ComUn.Attack() processes
+        //that way remaining HP = defTarget.Hp
+        CombatLog newLog = new(CurrentRound,
+								CurrentTurnOfRound,
 								atkUnit.Name,
 								atkUnit.Idr,
 								atkUnit.Accuracy,
