@@ -1,10 +1,10 @@
 # kb 2-7-2025
 # simulator to experiment with Lychgate RPG combat scenarios
-# combat unit Army container class
+# combat unit Weapon container class
 
-import comUn
+import weaponlist
 
-class Army:
+class Weapon:
     def __init__(self, lsUnits):
         self.units = lsUnits
         self.sortSelf()

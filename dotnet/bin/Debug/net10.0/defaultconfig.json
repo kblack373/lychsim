@@ -1,0 +1,86 @@
+[
+
+{
+	"Name": "Link",
+	"Idr":  10,
+	"Hp": 25,
+	"Accuracy": 50,
+	"Dmg": 5,
+	"Ac":0,
+	"Dodge":60,
+	"Ini":30,
+	"Align":"Hero"
+},
+
+{
+	"Name": "Randy Savage",
+	"Idr":  20,
+	"Hp": 55,
+	"Accuracy": 20,
+	"Dmg": 8,
+	"Ac":2,
+	"Dodge":32,
+	"Ini":61,
+	"Align":"Hero"
+},
+
+{
+	"Name": "Goblin A",
+	"Idr":  50,
+	"Hp": 10,
+	"Accuracy": 20,
+	"Dmg": 1,
+	"Ac":0,
+	"Dodge":30,
+	"Ini":5,
+	"Align":"Mob"
+},
+
+{
+	"Name": "Goblin B",
+	"Idr":  51,
+	"Hp": 10,
+	"Accuracy": 20,
+	"Dmg": 1,
+	"Ac":0,
+	"Dodge":30,
+	"Ini":7,
+	"Align":"Mob"
+},
+{
+	"Name": "Goblin C",
+	"Idr":  52,
+	"Hp": 10,
+	"Accuracy": 50,
+	"Dmg": 1,
+	"Ac":0,
+	"Dodge":30,
+	"Ini":11,
+	"Align":"Mob"
+},
+
+{
+	"Name": "Troll",
+	"Idr":  53,
+	"Hp": 20,
+	"Accuracy": 20,
+	"Dmg": 3,
+	"Ac":0,
+	"Dodge":30,
+	"Ini":10,
+	"Align":"Mob"
+},
+
+{
+	"Name": "Goblin Ranger",
+	"Idr":  55,
+	"Hp": 15,
+	"Accuracy": 80,
+	"Dmg": 1,
+	"Ac":1,
+	"Dodge":30,
+	"Ini":12,
+	"Align":"Mob"
+}
+
+]
