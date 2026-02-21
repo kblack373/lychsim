@@ -1,4 +1,7 @@
 ﻿
+using MathNet.Numerics;
+using MathNet.Numerics.Distributions;
+
 namespace Lychgate
 {
     //faction enumeration
@@ -143,8 +146,10 @@ namespace Lychgate
             //roll D100
             bool hit = TryHit(this.Accuracy, inTarget.Dodge);
             if (hit)
-            {
-                int netDmg = this.Dmg - inTarget.Ac;
+            {   
+                // Roll Damage 
+
+                int netDmg = RollDmg() - inTarget.Ac;
                 if (netDmg < 0)
                 {
                     // don't return less than 0 if it doesnt get thru armor
@@ -152,7 +157,7 @@ namespace Lychgate
                 }
                 else
                 {
-                    // successful hit
+                    // successful hit, roll damage
                     return netDmg;
                 }
             }
@@ -161,6 +166,19 @@ namespace Lychgate
                 //unique error code if a total miss; net dmg can be zero.
                 return -1;
             }
+
+        }
+        private int RollDmg()
+        {
+            double rolled_dmg = (int) Normal.Sample(this.Dmg, 2.0);
+
+            if (rolled_dmg <= 0)
+            {
+                rolled_dmg = 0;
+            }
+
+            Console.WriteLine($"Damage Roll: {rolled_dmg}");
+            return (int) rolled_dmg;
 
         }
 
