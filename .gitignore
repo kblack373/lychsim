@@ -484,3 +484,5 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/dotnet/bin/Debug/net10.0/lychgate-sim-console.dll
+/dotnet/bin/Debug/net10.0/lychgate-sim-console.exe
