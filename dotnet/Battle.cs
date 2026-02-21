@@ -271,4 +271,24 @@ public class Battle
 
 	}
 
+	private void InsertLog(int round, int turn, ComUn atkUnit, ComUn defTarget, int dmg, double rollResult, bool hitSuccess)
+	{
+		//executed AFTER ComUn.Attack() processes
+		//that way remaining HP = defTarget.Hp
+		CombatLog newLog = new(round,
+								turn,
+								atkUnit.Name,
+								atkUnit.Idr,
+								atkUnit.Accuracy,
+								hitSuccess,
+								rollResult,
+								defTarget.Name,
+								defTarget.Idr,
+								defTarget.Dodge,
+								defTarget.Ac,
+								dmg,
+								defTarget.Hp);
+
+	}
+
 }
