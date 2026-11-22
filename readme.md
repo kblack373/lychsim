@@ -1,10 +1,8 @@
 # LychSim
 
-A simulation program intended to experiment with RPG Party configurations. Runs multiple battles. 
+A simulation program intended to experiment with RPG Party configurations. Runs multiple battles.
 
-
-
-# Quickstart guide.
+# Quickstart guide (python)
 
 This package requires Python 3. Go install Python3 here.
 
@@ -34,3 +32,7 @@ The combat units in the simulation are objects with the following positional par
 | ac   | armor class, static damage reduction     | int | 
 | dodge   | chance for a target to dodge, depending on the roll      | float |
 | ini   | initiative, speed. higher values will allow a unit to take their turn earlier units with lower initative     | int | 
+
+
+# .NET Version
+The conversion to C# was completed earlier this year and runs as a console application. Working version to support future development.
